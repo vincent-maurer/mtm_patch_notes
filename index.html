@@ -20,51 +20,33 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #111827;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
             user-select: none;
             min-height: 100vh;
-            color: white;
+            color: #333333;
         }
 
-        /* --- MAIN RACK CONTAINER --- */
         .synth-container {
             position: relative;
             width: 100%; 
             height: 0;
             padding-top: 60%; 
-            
             background-color: var(--panel-bg);
-            /* Set to panel_image.jpg (ensure it's in the same folder) */
-            background-image: url('panel_image.png'); 
+            background-image: url('https://github.com/vincent-maurer/mtm_patch_notes/blob/main/panel_image.png?raw=true'); 
             background-size: 100% 100%;
             background-repeat: no-repeat;
             background-position: center;
-            
             border-radius: 4px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            /* Removed box-shadow */
             overflow: hidden;
+            border: 1px solid #e5e7eb; /* Added subtle border for definition */
         }
         
-        /* Edit Mode Overlay */
-        .edit-mode-active {
-            border: 2px dashed #fcd34d;
-        }
-        .edit-mode-active .component {
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            cursor: grab !important;
-        }
-        .edit-mode-active .component:hover {
-            border: 1px solid #fcd34d;
-            box-shadow: 0 0 5px #fcd34d;
-        }
-
-
-        /* --- COMPONENT STYLES --- */
         .component {
             position: absolute;
             transform: translate(-50%, -50%);
@@ -72,9 +54,8 @@
             z-index: 10;
         }
         
-        /* Jacks */
         .jack {
-            width: 2.2%;
+            width: 2.4%;
             height: 0;
             padding-bottom: 2.2%; 
             background: var(--jack-inner);
@@ -86,7 +67,6 @@
         .jack:hover { opacity: 0.8; box-shadow: 0 0 8px var(--jack-inner); transform: translate(-50%, -50%) scale(1.1); }
         .jack.active { opacity: 0.9; box-shadow: 0 0 10px 3px #fcd34d; border-color: #fcd34d; }
         
-        /* Knobs */
         .knob-large, .knob-medium, .knob-small {
             border-radius: 50%;
         }
@@ -95,7 +75,6 @@
         .knob-medium { width: 5.0%; padding-bottom: 5.0%; height: 0; }
         .knob-small { width: 2.8%; padding-bottom: 2.8%; height: 0; }
 
-        /* The Indicator Line */
         .knob-large::after, .knob-medium::after, .knob-small::after {
             content: '';
             position: absolute;
@@ -109,12 +88,10 @@
             pointer-events: none;
         }
         
-        /* Line Lengths (Increased for better visibility as requested) */
         .knob-large::after { height: 50%; } 
         .knob-medium::after { height: 50%; }
         .knob-small::after { height: 50%; } 
 
-        /* Switches */
         .switch-2way, .switch-3way {
             width: 1.2%; 
             height: 0;
@@ -125,7 +102,6 @@
         .switch-2way { padding-bottom: 2.5%; }
         .switch-3way { padding-bottom: 3.75%; } 
 
-        /* Special Case: Sideways Switch 191 */
         #switch-2way-191 {
             transform: translate(-50%, -50%) rotate(-90deg);
         }
@@ -136,7 +112,7 @@
             width: 100%;
             height: 25%;
             background: var(--switch-handle);
-            border-radius: 1px;
+            border-radius: 8px;
             transition: top 0.1s ease-out;
             pointer-events: none;
             border: 1px solid rgba(255,255,255,0.2);
@@ -146,18 +122,17 @@
         .switch-2way[data-state="0"] .switch-handle { top: 0%; } 
         .switch-2way[data-state="1"] .switch-handle { top: 60%; } 
 
-        .switch-3way .switch-handle { height: 20%; }
+        .switch-3way .switch-handle { height: 25%; }
         .switch-3way[data-state="0"] .switch-handle { top: 0%; } 
         .switch-3way[data-state="1"] .switch-handle { top: 40%; } 
         .switch-3way[data-state="2"] .switch-handle { top: 80%; } 
 
-        /* Buttons */
         .button {
-            width: 4%;          
-            padding-bottom: 4%; 
+            width: 4.2%;          
+            padding-bottom: 4.1%; 
             height: 0;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--button-border);
+            background: rgba(0, 0, 0, 0.05);
+            border: 0px solid var(--button-border);
             border-radius: 50%;   
             transition: all 0.1s ease;
             box-sizing: border-box;
@@ -168,7 +143,6 @@
             box-shadow: 0 0 12px var(--button-active);
         }
 
-        /* --- CABLES & LABELS are unchanged --- */
         .cable-svg {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -177,7 +151,7 @@
         .cable-svg path {
             fill: none; stroke-width: 6;
             stroke-linecap: round;
-            transition: d 0.1s ease-out; opacity: 0.9;
+            transition: d 0.1s ease-out; opacity: 0.6;
             cursor: pointer; pointer-events: auto;
             filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));
         }
@@ -191,7 +165,7 @@
             font-weight: 800;
             text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
             font-size: 1.1rem;
-            border: 1px dashed rgba(255,255,255,0.3);
+            border: 1px dashed rgba(0,0,0,0.3);
             border-radius: 4px;
             position: absolute; 
             transform: translate(-50%, -50%); 
@@ -199,586 +173,177 @@
             cursor: grab;
             white-space: nowrap;
         }
-        .note-element:hover { border: 1px dashed rgba(255,255,255,0.8); background: rgba(255,255,255,0.2); }
+        .note-element:hover { border: 1px dashed rgba(0,0,0,0.8); background: rgba(0,0,0,0.05); } 
         .note-element:focus { border: 1px solid #000; outline: none; background: rgba(255,255,255,0.8); cursor: text; }
     </style>
 </head>
 <body class="min-h-screen">
 
     <header class="text-center mb-4">
-        <h1 class="text-3xl font-bold text-gray-100 mb-1">MTM Workshop System Documenter</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-1">MTM Workshop System Patch Notes</h1>
     </header>
-    
-    <div class="flex flex-wrap gap-2 justify-center bg-gray-800 p-3 rounded-lg shadow-xl mb-4 w-full max-w-6xl border border-gray-700">
-        <button id="toggleEditModeButton" class="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition font-medium">
-            Toggle Layout Edit Mode (OFF)
-        </button>
-        <button id="exportLayoutButton" class="px-4 py-2 bg-pink-800 text-white rounded hover:bg-pink-900 transition font-medium" style="display: none;">
-            Export Layout to Console
-        </button>
 
-        <div class="w-px bg-gray-600 mx-2"></div>
+    <div class="w-full max-w-[1500px] flex flex-col gap-4 px-4">
         
-        <button id="addNoteButton" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition font-medium">
-            + Label
-        </button>
-        <div class="w-px bg-gray-600 mx-2"></div>
-        <button id="savePatchButton" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition font-medium">
-            Save Patch
-        </button>
-        <input type="file" id="loadPatchInput" accept=".json" style="display: none;" />
-        <button id="loadPatchButton" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition font-medium">
-            Load Patch
-        </button>
-        <div class="w-px bg-gray-600 mx-2"></div>
-        <button id="savePngButton" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-medium">
-            PNG
-        </button>
-        <button id="savePdfButton" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition font-medium">
-            PDF
-        </button>
-        <button id="clearButton" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition font-medium">
-            Reset
-        </button>
-    </div>
+        <div class="w-full bg-white p-2 rounded border border-gray-300">
+            <label for="patchNameInput" class="block text-sm font-medium text-gray-600 mb-1">Patch Name</label>
+            <input type="text" id="patchNameInput" class="w-full bg-white text-gray-900 text-xl p-2 rounded border border-gray-400 focus:outline-none focus:border-indigo-500" placeholder="Untitled Patch">
+        </div>
 
-    <div class="w-full max-w-[1500px] flex flex-col gap-6 px-4">
+        <div class="flex flex-wrap gap-2 justify-center bg-gray-100 p-3 rounded-lg mb-0 w-full border border-gray-300">
+            <button id="addNoteButton" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition font-medium">
+                + Label
+            </button>
+            <div class="w-px bg-gray-600 mx-2"></div>
+            <button id="savePatchButton" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition font-medium">
+                Save Patch
+            </button>
+            <input type="file" id="loadPatchInput" accept=".json" style="display: none;" />
+            <button id="loadPatchButton" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition font-medium">
+                Load Patch
+            </button>
+            <div class="w-px bg-gray-600 mx-2"></div>
+            <button id="savePngButton" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-medium">
+                PNG
+            </button>
+            <button id="savePdfButton" class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition font-medium">
+                PDF
+            </button>
+            <button id="clearButton" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition font-medium">
+                Reset
+            </button>
+        </div>
+
         <div class="synth-container" id="synthContainer">
             <svg class="cable-svg" id="cableLayer"></svg>
             </div>
         
-        <div class="w-full bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+        <div class="w-full bg-gray-100 p-6 rounded-lg border border-gray-300">
             <div class="flex flex-col gap-4">
                 <div>
-                    <label for="patchNameInput" class="block text-sm font-medium text-gray-400 mb-1">Patch Name</label>
-                    <input type="text" id="patchNameInput" class="w-full bg-gray-900 text-white text-xl p-2 rounded border border-gray-600 focus:outline-none focus:border-indigo-500" placeholder="Untitled Patch">
-                </div>
-                <div>
-                    <label for="globalNotesArea" class="block text-sm font-medium text-gray-400 mb-1">Notes</label>
-                    <textarea id="globalNotesArea" class="w-full h-40 bg-gray-900 text-gray-200 p-3 rounded border border-gray-600 focus:outline-none focus:border-indigo-500 font-mono text-sm" 
+                    <label for="globalNotesArea" class="block text-sm font-medium text-gray-600 mb-1">Notes</label>
+                    <textarea id="globalNotesArea" class="w-full h-40 bg-white text-gray-900 p-3 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 font-mono text-sm" 
                     placeholder="Describe signal flow, settings, and ideas here..."></textarea>
                 </div>
             </div>
         </div>
     </div>
     
-    <div id="coordinateHud" class="fixed top-4 right-4 bg-gray-900 text-gray-100 p-3 rounded-lg shadow-2xl z-50 font-mono text-sm hidden border border-pink-600">
-        <div id="hudId">ID: </div>
-        <div id="hudX">X: </div>
-        <div id="hudY">Y: </div>
-    </div>
     <div id="messageBox" class="fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded-lg shadow-2xl transition-opacity duration-300 opacity-0 hidden z-50"></div>
     
     <script>
-        // --- EMBEDDED LAYOUT DATA ---
         let EMBEDDED_LAYOUT = {
-  "panel_name": "MTM Workshop System Default Layout",
-  "controls": {
-    "knob-large-100": {
-      "type": "knob-large",
-      "x": "9.44%",
-      "y": "15.15%"
-    },
-    "knob-large-101": {
-      "type": "knob-large",
-      "x": "28.67%",
-      "y": "15.08%"
-    },
-    "knob-large-102": {
-      "type": "knob-large",
-      "x": "66.37%",
-      "y": "15.34%"
-    },
-    "knob-large-103": {
-      "type": "knob-large",
-      "x": "66.34%",
-      "y": "87.69%"
-    },
-    "knob-large-104": {
-      "type": "knob-large",
-      "x": "28.46%",
-      "y": "87.71%"
-    },
-    "knob-large-105": {
-      "type": "knob-large",
-      "x": "92.62%",
-      "y": "87.65%"
-    },
-    "knob-medium-106": {
-      "type": "knob-medium",
-      "x": "78.87%",
-      "y": "13.12%"
-    },
-    "knob-medium-107": {
-      "type": "knob-medium",
-      "x": "78.74%",
-      "y": "89.30%"
-    },
-    "knob-medium-108": {
-      "type": "knob-medium",
-      "x": "51.35%",
-      "y": "16.82%"
-    },
-    "knob-small-109": {
-      "type": "knob-small",
-      "x": "3.25%",
-      "y": "32.53%"
-    },
-    "knob-small-110": {
-      "type": "knob-small",
-      "x": "9.58%",
-      "y": "32.40%"
-    },
-    "knob-small-111": {
-      "type": "knob-small",
-      "x": "22.61%",
-      "y": "32.51%"
-    },
-    "knob-small-112": {
-      "type": "knob-small",
-      "x": "34.14%",
-      "y": "32.65%"
-    },
-    "knob-small-113": {
-      "type": "knob-small",
-      "x": "88.80%",
-      "y": "13.18%"
-    },
-    "knob-small-114": {
-      "type": "knob-small",
-      "x": "96.39%",
-      "y": "13.27%"
-    },
-    "knob-small-115": {
-      "type": "knob-small",
-      "x": "88.75%",
-      "y": "23.31%"
-    },
-    "knob-small-116": {
-      "type": "knob-small",
-      "x": "96.47%",
-      "y": "23.28%"
-    },
-    "knob-small-117": {
-      "type": "knob-small",
-      "x": "96.47%",
-      "y": "33.55%"
-    },
-    "knob-small-118": {
-      "type": "knob-small",
-      "x": "88.80%",
-      "y": "33.52%"
-    },
-    "jack-119": {
-      "type": "jack",
-      "x": "2.47%",
-      "y": "46.05%"
-    },
-    "jack-120": {
-      "type": "jack",
-      "x": "7.15%",
-      "y": "46.09%"
-    },
-    "jack-121": {
-      "type": "jack",
-      "x": "11.94%",
-      "y": "46.25%"
-    },
-    "jack-122": {
-      "type": "jack",
-      "x": "16.61%",
-      "y": "46.25%"
-    },
-    "jack-123": {
-      "type": "jack",
-      "x": "2.47%",
-      "y": "57.06%"
-    },
-    "jack-124": {
-      "type": "jack",
-      "x": "7.22%",
-      "y": "56.96%"
-    },
-    "jack-125": {
-      "type": "jack",
-      "x": "11.94%",
-      "y": "57.17%"
-    },
-    "jack-126": {
-      "type": "jack",
-      "x": "16.61%",
-      "y": "57.01%"
-    },
-    "jack-127": {
-      "type": "jack",
-      "x": "2.45%",
-      "y": "68.00%"
-    },
-    "jack-128": {
-      "type": "jack",
-      "x": "7.15%",
-      "y": "67.93%"
-    },
-    "jack-129": {
-      "type": "jack",
-      "x": "11.94%",
-      "y": "67.93%"
-    },
-    "jack-130": {
-      "type": "jack",
-      "x": "16.61%",
-      "y": "67.93%"
-    },
-    "jack-131": {
-      "type": "jack",
-      "x": "21.40%",
-      "y": "46.25%"
-    },
-    "jack-132": {
-      "type": "jack",
-      "x": "21.40%",
-      "y": "57.01%"
-    },
-    "jack-133": {
-      "type": "jack",
-      "x": "26.10%",
-      "y": "57.17%"
-    },
-    "jack-134": {
-      "type": "jack",
-      "x": "26.07%",
-      "y": "46.12%"
-    },
-    "jack-135": {
-      "type": "jack",
-      "x": "30.87%",
-      "y": "46.25%"
-    },
-    "jack-136": {
-      "type": "jack",
-      "x": "30.87%",
-      "y": "57.01%"
-    },
-    "jack-137": {
-      "type": "jack",
-      "x": "35.53%",
-      "y": "46.25%"
-    },
-    "jack-138": {
-      "type": "jack",
-      "x": "35.59%",
-      "y": "56.97%"
-    },
-    "jack-139": {
-      "type": "jack",
-      "x": "40.43%",
-      "y": "46.09%"
-    },
-    "jack-140": {
-      "type": "jack",
-      "x": "40.33%",
-      "y": "57.01%"
-    },
-    "jack-141": {
-      "type": "jack",
-      "x": "45.10%",
-      "y": "57.01%"
-    },
-    "jack-142": {
-      "type": "jack",
-      "x": "45.10%",
-      "y": "46.25%"
-    },
-    "jack-143": {
-      "type": "jack",
-      "x": "49.79%",
-      "y": "46.09%"
-    },
-    "jack-144": {
-      "type": "jack",
-      "x": "54.54%",
-      "y": "46.12%"
-    },
-    "jack-145": {
-      "type": "jack",
-      "x": "49.89%",
-      "y": "57.01%"
-    },
-    "jack-146": {
-      "type": "jack",
-      "x": "54.56%",
-      "y": "57.01%"
-    },
-    "jack-147": {
-      "type": "jack",
-      "x": "59.25%",
-      "y": "57.01%"
-    },
-    "jack-148": {
-      "type": "jack",
-      "x": "59.25%",
-      "y": "46.25%"
-    },
-    "jack-149": {
-      "type": "jack",
-      "x": "63.92%",
-      "y": "46.09%"
-    },
-    "jack-150": {
-      "type": "jack",
-      "x": "64.02%",
-      "y": "57.01%"
-    },
-    "jack-151": {
-      "type": "jack",
-      "x": "68.79%",
-      "y": "57.17%"
-    },
-    "jack-152": {
-      "type": "jack",
-      "x": "68.79%",
-      "y": "46.09%"
-    },
-    "jack-153": {
-      "type": "jack",
-      "x": "73.49%",
-      "y": "46.09%"
-    },
-    "jack-154": {
-      "type": "jack",
-      "x": "73.50%",
-      "y": "57.07%"
-    },
-    "jack-155": {
-      "type": "jack",
-      "x": "78.28%",
-      "y": "57.01%"
-    },
-    "jack-156": {
-      "type": "jack",
-      "x": "78.28%",
-      "y": "46.09%"
-    },
-    "jack-157": {
-      "type": "jack",
-      "x": "82.95%",
-      "y": "46.09%"
-    },
-    "jack-159": {
-      "type": "jack",
-      "x": "82.95%",
-      "y": "57.01%"
-    },
-    "jack-160": {
-      "type": "jack",
-      "x": "87.72%",
-      "y": "46.25%"
-    },
-    "jack-161": {
-      "type": "jack",
-      "x": "87.72%",
-      "y": "57.01%"
-    },
-    "jack-162": {
-      "type": "jack",
-      "x": "92.52%",
-      "y": "57.01%"
-    },
-    "jack-163": {
-      "type": "jack",
-      "x": "92.42%",
-      "y": "45.93%"
-    },
-    "jack-164": {
-      "type": "jack",
-      "x": "97.23%",
-      "y": "46.12%"
-    },
-    "jack-165": {
-      "type": "jack",
-      "x": "97.12%",
-      "y": "57.01%"
-    },
-    "jack-166": {
-      "type": "jack",
-      "x": "92.52%",
-      "y": "67.93%"
-    },
-    "jack-167": {
-      "type": "jack",
-      "x": "45.10%",
-      "y": "13.58%"
-    },
-    "jack-168": {
-      "type": "jack",
-      "x": "45.10%",
-      "y": "24.50%"
-    },
-    "jack-169": {
-      "type": "jack",
-      "x": "97.21%",
-      "y": "67.93%"
-    },
-    "jack-170": {
-      "type": "jack",
-      "x": "82.92%",
-      "y": "67.97%"
-    },
-    "jack-171": {
-      "type": "jack",
-      "x": "78.25%",
-      "y": "35.04%"
-    },
-    "jack-172": {
-      "type": "jack",
-      "x": "49.79%",
-      "y": "35.17%"
-    },
-    "jack-173": {
-      "type": "jack",
-      "x": "54.56%",
-      "y": "35.17%"
-    },
-    "jack-174": {
-      "type": "jack",
-      "x": "40.43%",
-      "y": "35.17%"
-    },
-    "jack-175": {
-      "type": "jack",
-      "x": "40.33%",
-      "y": "13.58%"
-    },
-    "jack-177": {
-      "type": "jack",
-      "x": "40.33%",
-      "y": "89.04%"
-    },
-    "jack-178": {
-      "type": "jack",
-      "x": "45.03%",
-      "y": "89.04%"
-    },
-    "knob-small-179": {
-      "type": "knob-small",
-      "x": "60.12%",
-      "y": "32.53%"
-    },
-    "knob-small-180": {
-      "type": "knob-small",
-      "x": "72.55%",
-      "y": "32.53%"
-    },
-    "knob-small-184": {
-      "type": "knob-small",
-      "x": "22.70%",
-      "y": "70.66%"
-    },
-    "knob-small-185": {
-      "type": "knob-small",
-      "x": "34.20%",
-      "y": "70.56%"
-    },
-    "knob-small-186": {
-      "type": "knob-small",
-      "x": "40.34%",
-      "y": "76.35%"
-    },
-    "knob-small-187": {
-      "type": "knob-small",
-      "x": "44.53%",
-      "y": "67.50%"
-    },
-    "knob-small-188": {
-      "type": "knob-small",
-      "x": "52.26%",
-      "y": "67.50%"
-    },
-    "knob-small-189": {
-      "type": "knob-small",
-      "x": "60.12%",
-      "y": "70.43%"
-    },
-    "knob-small-190": {
-      "type": "knob-small",
-      "x": "72.52%",
-      "y": "70.35%"
-    },
-    "switch-2way-191": {
-      "type": "switch-2way",
-      "x": "52.25%",
-      "y": "26.57%"
-    },
-    "switch-2way-192": {
-      "type": "switch-2way",
-      "x": "66.49%",
-      "y": "70.40%"
-    },
-    "switch-2way-194": {
-      "type": "switch-2way",
-      "x": "66.48%",
-      "y": "32.66%"
-    },
-    "switch-3way-195": {
-      "type": "switch-3way",
-      "x": "77.91%",
-      "y": "24.90%"
-    },
-    "switch-3way-196": {
-      "type": "switch-3way",
-      "x": "83.22%",
-      "y": "24.77%"
-    },
-    "switch-3way-197": {
-      "type": "switch-3way",
-      "x": "77.92%",
-      "y": "78.31%"
-    },
-    "switch-3way-198": {
-      "type": "switch-3way",
-      "x": "83.29%",
-      "y": "78.19%"
-    },
-    "switch-3way-199": {
-      "type": "switch-3way",
-      "x": "15.68%",
-      "y": "31.65%"
-    },
-    "button-200": {
-      "type": "button",
-      "x": "50.35%",
-      "y": "79.84%"
-    },
-    "button-201": {
-      "type": "button",
-      "x": "56.04%",
-      "y": "79.95%"
-    },
-    "button-202": {
-      "type": "button",
-      "x": "50.35%",
-      "y": "89.52%"
-    },
-    "button-203": {
-      "type": "button",
-      "x": "56.04%",
-      "y": "89.36%"
-    }
-  }
-}
-        // --- GLOBAL VARIABLES ---
+            "panel_name": "MTM Workshop System Default Layout - Aligned Jacks",
+            "controls": {
+            "knob-large-100": {"type": "knob-large", "x": "9.44%", "y": "15.15%"},
+            "knob-large-101": {"type": "knob-large", "x": "28.67%", "y": "15.08%"},
+            "knob-large-102": {"type": "knob-large", "x": "66.37%", "y": "15.34%"},
+            "knob-large-103": {"type": "knob-large", "x": "66.34%", "y": "87.69%"},
+            "knob-large-104": {"type": "knob-large", "x": "28.46%", "y": "87.71%"},
+            "knob-large-105": {"type": "knob-large", "x": "92.62%", "y": "87.65%"},
+            "knob-medium-106": {"type": "knob-medium", "x": "78.87%", "y": "13.12%"},
+            "knob-medium-107": {"type": "knob-medium", "x": "78.74%", "y": "89.30%"},
+            "knob-medium-108": {"type": "knob-medium", "x": "51.35%", "y": "16.82%"},
+            "knob-small-109": {"type": "knob-small", "x": "3.25%", "y": "32.53%"},
+            "knob-small-110": {"type": "knob-small", "x": "9.58%", "y": "32.40%"},
+            "knob-small-111": {"type": "knob-small", "x": "22.61%", "y": "32.51%"},
+            "knob-small-112": {"type": "knob-small", "x": "34.14%", "y": "32.65%"},
+            "knob-small-113": {"type": "knob-small", "x": "88.80%", "y": "13.18%"},
+            "knob-small-114": {"type": "knob-small", "x": "96.39%", "y": "13.27%"},
+            "knob-small-115": {"type": "knob-small", "x": "88.75%", "y": "23.31%"},
+            "knob-small-116": {"type": "knob-small", "x": "96.47%", "y": "23.28%"},
+            "knob-small-117": {"type": "knob-small", "x": "96.47%", "y": "33.55%"},
+            "knob-small-118": {"type": "knob-small", "x": "88.80%", "y": "33.52%"},
+            "jack-119": {"type": "jack", "x": "2.47%", "y": "46.15%"},
+            "jack-120": {"type": "jack", "x": "7.15%", "y": "46.15%"},
+            "jack-121": {"type": "jack", "x": "11.94%", "y": "46.15%"},
+            "jack-122": {"type": "jack", "x": "16.61%", "y": "46.15%"},
+            "jack-123": {"type": "jack", "x": "2.47%", "y": "57.05%"},
+            "jack-124": {"type": "jack", "x": "7.22%", "y": "57.05%"},
+            "jack-125": {"type": "jack", "x": "11.94%", "y": "57.05%"},
+            "jack-126": {"type": "jack", "x": "16.61%", "y": "57.05%"},
+            "jack-127": {"type": "jack", "x": "2.45%", "y": "67.95%"},
+            "jack-128": {"type": "jack", "x": "7.15%", "y": "67.95%"},
+            "jack-129": {"type": "jack", "x": "11.94%", "y": "67.95%"},
+            "jack-130": {"type": "jack", "x": "16.61%", "y": "67.95%"},
+            "jack-131": {"type": "jack", "x": "21.40%", "y": "46.15%"},
+            "jack-132": {"type": "jack", "x": "21.40%", "y": "57.05%"},
+            "jack-133": {"type": "jack", "x": "26.09%", "y": "57.05%"},
+            "jack-134": {"type": "jack", "x": "26.07%", "y": "46.15%"},
+            "jack-135": {"type": "jack", "x": "30.87%", "y": "46.15%"},
+            "jack-136": {"type": "jack", "x": "30.87%", "y": "57.05%"},
+            "jack-137": {"type": "jack", "x": "35.56%", "y": "46.15%"},
+            "jack-138": {"type": "jack", "x": "35.59%", "y": "57.05%"},
+            "jack-139": {"type": "jack", "x": "40.43%", "y": "46.15%"},
+            "jack-140": {"type": "jack", "x": "40.38%", "y": "57.05%"},
+            "jack-141": {"type": "jack", "x": "45.10%", "y": "57.05%"},
+            "jack-142": {"type": "jack", "x": "45.10%", "y": "46.15%"},
+            "jack-143": {"type": "jack", "x": "49.84%", "y": "46.15%"},
+            "jack-144": {"type": "jack", "x": "54.55%", "y": "46.15%"},
+            "jack-145": {"type": "jack", "x": "49.89%", "y": "57.05%"},
+            "jack-146": {"type": "jack", "x": "54.56%", "y": "57.05%"},
+            "jack-147": {"type": "jack", "x": "59.25%", "y": "57.05%"},
+            "jack-148": {"type": "jack", "x": "59.25%", "y": "46.15%"},
+            "jack-149": {"type": "jack", "x": "63.97%", "y": "46.15%"},
+            "jack-150": {"type": "jack", "x": "64.02%", "y": "57.05%"},
+            "jack-151": {"type": "jack", "x": "68.79%", "y": "57.05%"},
+            "jack-152": {"type": "jack", "x": "68.79%", "y": "46.15%"},
+            "jack-153": {"type": "jack", "x": "73.49%", "y": "46.15%"},
+            "jack-154": {"type": "jack", "x": "73.50%", "y": "57.05%"},
+            "jack-155": {"type": "jack", "x": "78.28%", "y": "57.05%"},
+            "jack-156": {"type": "jack", "x": "78.28%", "y": "46.15%"},
+            "jack-157": {"type": "jack", "x": "82.95%", "y": "46.15%"},
+            "jack-159": {"type": "jack", "x": "82.95%", "y": "57.05%"},
+            "jack-160": {"type": "jack", "x": "87.72%", "y": "46.15%"},
+            "jack-161": {"type": "jack", "x": "87.72%", "y": "57.05%"},
+            "jack-162": {"type": "jack", "x": "92.47%", "y": "57.05%"},
+            "jack-163": {"type": "jack", "x": "92.42%", "y": "46.15%"},
+            "jack-164": {"type": "jack", "x": "97.23%", "y": "46.15%"},
+            "jack-165": {"type": "jack", "x": "97.12%", "y": "57.05%"},
+            "jack-166": {"type": "jack", "x": "92.52%", "y": "67.95%"},
+            "jack-167": {"type": "jack", "x": "45.10%", "y": "13.58%"},
+            "jack-168": {"type": "jack", "x": "45.10%", "y": "35.15%"},
+            "jack-169": {"type": "jack", "x": "97.21%", "y": "67.95%"},
+            "jack-170": {"type": "jack", "x": "82.92%", "y": "67.95%"},
+            "jack-171": {"type": "jack", "x": "78.25%", "y": "35.15%"},
+            "jack-172": {"type": "jack", "x": "49.79%", "y": "35.15%"},
+            "jack-173": {"type": "jack", "x": "54.56%", "y": "35.15%"},
+            "jack-174": {"type": "jack", "x": "40.43%", "y": "35.15%"},
+            "jack-175": {"type": "jack", "x": "40.33%", "y": "13.58%"},
+            "jack-177": {"type": "jack", "x": "40.33%", "y": "89.04%"},
+            "jack-178": {"type": "jack", "x": "45.03%", "y": "89.04%"},
+            "knob-small-179": {"type": "knob-small", "x": "60.12%", "y": "32.53%"},
+            "knob-small-180": {"type": "knob-small", "x": "72.55%", "y": "32.53%"},
+            "knob-small-184": {"type": "knob-small", "x": "22.70%", "y": "70.66%"},
+            "knob-small-185": {"type": "knob-small", "x": "34.20%", "y": "70.56%"},
+            "knob-small-186": {"type": "knob-small", "x": "40.34%", "y": "76.35%"},
+            "knob-small-187": {"type": "knob-small", "x": "44.53%", "y": "67.50%"},
+            "knob-small-188": {"type": "knob-small", "x": "52.26%", "y": "67.50%"},
+            "knob-small-189": {"type": "knob-small", "x": "60.12%", "y": "70.43%"},
+            "knob-small-190": {"type": "knob-small", "x": "72.52%", "y": "70.35%"},
+            "switch-2way-191": {"type": "switch-2way", "x": "52.25%", "y": "26.57%"},
+            "switch-2way-192": {"type": "switch-2way", "x": "66.46%", "y": "70.40%"},
+            "switch-2way-194": {"type": "switch-2way", "x": "66.46%", "y": "32.66%"},
+            "switch-3way-195": {"type": "switch-3way", "x": "77.90%", "y": "24.60%"},
+            "switch-3way-196": {"type": "switch-3way", "x": "83.25%", "y": "24.60%"},
+            "switch-3way-197": {"type": "switch-3way", "x": "77.90%", "y": "78.25%"},
+            "switch-3way-198": {"type": "switch-3way", "x": "83.25%", "y": "78.25%"},
+            "switch-3way-199": {"type": "switch-3way", "x": "15.70%", "y": "31.40%"},
+            "button-1": {"type": "button", "x": "50.35%", "y": "79.9%"},
+            "button-2": {"type": "button", "x": "56%", "y": "79.9%"},
+            "button-3": {"type": "button", "x": "50.35%", "y": "89.5%"},
+            "button-4": {"type": "button", "x": "56%", "y": "89.5%"}
+        }
+        }
+        
         let currentCableStart = null;
         let cableData = [];
         let noteData = [];
         let componentStates = {}; 
         let componentPositions = EMBEDDED_LAYOUT.controls; 
         
-        let isEditMode = false; // NEW GLOBAL STATE
-        let currentDragElement = null; // Used for both Knobs and Components in edit mode
-        let offsetX, offsetY; 
-        let isDraggingKnob = false; // Only for knob rotation in normal mode
-        
-        // --- UTILITY ---
+        let isDraggingKnob = false;
+
         function getComponentPosition(id) {
             const el = document.getElementById(id);
             if (!el) return null;
@@ -813,140 +378,6 @@
             return colors[Math.floor(Math.random() * colors.length)];
         }
 
-        // --- EDIT MODE LOGIC ---
-        
-        function toggleEditMode() {
-            isEditMode = !isEditMode;
-            const container = document.getElementById('synthContainer');
-            const toggleButton = document.getElementById('toggleEditModeButton');
-            const exportButton = document.getElementById('exportLayoutButton');
-            const cableLayer = document.getElementById('cableLayer');
-
-            if (isEditMode) {
-                container.classList.add('edit-mode-active');
-                toggleButton.textContent = 'Toggle Layout Edit Mode (ON)';
-                exportButton.style.display = 'inline-block';
-                document.getElementById('coordinateHud').style.display = 'block';
-                cableLayer.style.pointerEvents = 'none'; // Disable cable drawing
-                attachEditListeners();
-                showMessage('Layout Edit Mode ON. Drag elements to move.', 'warning');
-            } else {
-                container.classList.remove('edit-mode-active');
-                toggleButton.textContent = 'Toggle Layout Edit Mode (OFF)';
-                exportButton.style.display = 'none';
-                document.getElementById('coordinateHud').style.display = 'none';
-                cableLayer.style.pointerEvents = 'auto'; // Re-enable cable drawing
-                detachEditListeners();
-                redrawCables(); // Redraw cables to match new positions
-                showMessage('Layout Edit Mode OFF. Patching enabled.', 'success');
-            }
-        }
-
-        function attachEditListeners() {
-            document.querySelectorAll('.component').forEach(el => {
-                el.removeEventListener('mousedown', startKnobDrag);
-                el.removeEventListener('touchstart', startKnobDrag);
-                el.removeEventListener('click', handleJackClick);
-                el.removeEventListener('contextmenu', handleJackClick);
-                el.removeEventListener('click', handleSwitchClick);
-                el.removeEventListener('click', handleButtonClick);
-
-                el.addEventListener('mousedown', startComponentDrag);
-                el.addEventListener('touchstart', startComponentDrag);
-            });
-        }
-        
-        function detachEditListeners() {
-            document.querySelectorAll('.component').forEach(el => {
-                el.removeEventListener('mousedown', startComponentDrag);
-                el.removeEventListener('touchstart', startComponentDrag);
-                
-                // Re-attach normal listeners based on type
-                if (el.id.includes('knob')) {
-                    el.addEventListener('mousedown', startKnobDrag);
-                    el.addEventListener('touchstart', startKnobDrag);
-                } else if (el.id.includes('jack')) {
-                    el.addEventListener('click', handleJackClick);
-                    el.addEventListener('contextmenu', handleJackClick);
-                } else if (el.id.includes('switch')) {
-                    el.addEventListener('click', handleSwitchClick);
-                } else if (el.id.includes('button')) {
-                    el.addEventListener('click', handleButtonClick);
-                }
-            });
-        }
-
-        function startComponentDrag(e) {
-            e.stopPropagation(); e.preventDefault();
-            const isTouch = e.type.includes('touch');
-            currentDragElement = e.currentTarget;
-            currentDragElement.style.zIndex = 100; // Bring to front
-            
-            const containerRect = document.getElementById('synthContainer').getBoundingClientRect();
-            const elRect = currentDragElement.getBoundingClientRect();
-            
-            const cx = isTouch ? e.touches[0].clientX : e.clientX;
-            const cy = isTouch ? e.touches[0].clientY : e.clientY;
-            
-            // Calculate offset relative to the center of the element
-            offsetX = cx - (elRect.left + elRect.width / 2);
-            offsetY = cy - (elRect.top + elRect.height / 2);
-
-            document.addEventListener(isTouch ? 'touchmove' : 'mousemove', dragComponent);
-            document.addEventListener(isTouch ? 'touchend' : 'mouseup', stopComponentDrag);
-        }
-
-        function dragComponent(e) {
-            if (!currentDragElement) return;
-            e.preventDefault();
-            const isTouch = e.type.includes('touch');
-            const container = document.getElementById('synthContainer').getBoundingClientRect();
-            const cx = isTouch ? e.touches[0].clientX : e.clientX;
-            const cy = isTouch ? e.touches[0].clientY : e.clientY;
-            
-            let newXpx = cx - container.left - offsetX;
-            let newYpx = cy - container.top - offsetY;
-
-            // Clamp values within bounds (roughly)
-            newXpx = Math.max(0, Math.min(newXpx, container.width));
-            newYpx = Math.max(0, Math.min(newYpx, container.height));
-
-            const newXperc = (newXpx / container.width) * 100;
-            const newYperc = (newYpx / container.height) * 100;
-            
-            currentDragElement.style.left = `${newXperc.toFixed(2)}%`;
-            currentDragElement.style.top = `${newYperc.toFixed(2)}%`;
-
-            // Update local component position data and HUD
-            const id = currentDragElement.id;
-            componentPositions[id].x = `${newXperc.toFixed(2)}%`;
-            componentPositions[id].y = `${newYperc.toFixed(2)}%`;
-
-            document.getElementById('hudId').textContent = `ID: ${id}`;
-            document.getElementById('hudX').textContent = `X: ${newXperc.toFixed(2)}%`;
-            document.getElementById('hudY').textContent = `Y: ${newYperc.toFixed(2)}%`;
-        }
-
-        function stopComponentDrag() {
-            if (currentDragElement) {
-                currentDragElement.style.zIndex = 10;
-                currentDragElement = null;
-            }
-            document.removeEventListener('mousemove', dragComponent);
-            document.removeEventListener('mouseup', stopComponentDrag);
-            document.removeEventListener('touchmove', dragComponent);
-            document.removeEventListener('touchend', stopComponentDrag);
-        }
-        
-        function exportLayout() {
-            const output = JSON.stringify(EMBEDDED_LAYOUT, null, 2);
-            console.log("--- UPDATED EMBEDDED_LAYOUT DATA ---");
-            console.log(output);
-            showMessage('Layout copied to Console (F12). Paste into HTML source.', 'success');
-        }
-
-
-        // --- SAVE / LOAD (Unchanged) ---
         function savePatchToFile() {
             saveNotePositions();
             const patchName = document.getElementById('patchNameInput').value.trim() || "Untitled";
@@ -1009,8 +440,6 @@
             reader.readAsText(file);
         }
 
-
-        // --- IMAGING (PNG / PDF) (Unchanged) ---
         function getScreenshotCanvas(callback) {
             const container = document.getElementById('synthContainer');
             document.querySelectorAll('.note-element').forEach(el => el.style.border = 'none');
@@ -1073,7 +502,6 @@
             });
         }
         
-        // --- CABLE LOGIC (Unchanged) ---
         function drawCable(startId, endId, color, isTemporary = false, mouseX = 0, mouseY = 0) {
             const cableLayer = document.getElementById('cableLayer');
             const containerRect = cableLayer.getBoundingClientRect();
@@ -1136,7 +564,6 @@
         }
 
         function handleJackClick(event) {
-            if(isEditMode) return;
             const jackId = event.currentTarget.id;
             if (event.type === 'contextmenu') {
                 event.preventDefault();
@@ -1168,7 +595,7 @@
         }
 
         function handleMouseMove(event) {
-            if (currentCableStart !== null && !isEditMode) {
+            if (currentCableStart !== null) {
                 drawCable(currentCableStart, null, '#000000', true, event.clientX, event.clientY);
             }
         }
@@ -1178,12 +605,8 @@
             cableData.forEach(c => drawCable(c.start, c.end, c.color));
         }
 
-        // --- CONTROLS LOGIC ---
-        
-        // KNOBS
         function updateKnobAngle(el, angle) {
             if (!el) return;
-            // 300 range (-150 to 150)
             const norm = Math.max(-150, Math.min(150, angle));
             el.style.setProperty('--angle', norm);
             el.setAttribute('data-angle', norm);
@@ -1193,7 +616,6 @@
         }
 
         function startKnobDrag(e) {
-            if (isEditMode) return;
             e.stopPropagation(); e.preventDefault();
             const isTouch = e.type.includes('touch');
             const cx = isTouch ? e.touches[0].clientX : e.clientX;
@@ -1218,7 +640,7 @@
         }
 
         function dragKnob(e) {
-            if (!isDraggingKnob || !currentKnobElement || isEditMode) return;
+            if (!isDraggingKnob || !currentKnobElement) return;
             const isTouch = e.type.includes('touch');
             const cx = isTouch ? e.touches[0].clientX : e.clientX;
             const cy = isTouch ? e.touches[0].clientY : e.clientY;
@@ -1247,9 +669,7 @@
             document.removeEventListener('touchend', stopKnobDrag);
         }
 
-        // SWITCHES
         function handleSwitchClick(e) {
-            if(isEditMode) return;
             const el = e.currentTarget;
             const is3Way = el.classList.contains('switch-3way');
             const max = is3Way ? 3 : 2;
@@ -1261,17 +681,13 @@
             componentStates[el.id] = { type: is3Way ? 'switch-3way' : 'switch-2way', value: nextVal };
         }
 
-        // BUTTONS
         function handleButtonClick(e) {
-            if(isEditMode) return;
             const el = e.currentTarget;
             let val = parseInt(el.dataset.state || 0) === 0 ? 1 : 0;
             el.setAttribute('data-state', val);
             componentStates[el.id] = { type: 'button', value: val };
         }
 
-
-        // --- LABELS (Note drag logic kept separate for labels vs. components) ---
         function createNoteElement(data) {
             const el = document.createElement('div');
             el.className = 'note-element';
@@ -1307,7 +723,7 @@
             if (document.activeElement === e.target) return;
             e.stopPropagation();
             const isTouch = e.type.includes('touch');
-            currentDragElement = e.currentTarget; // Use generic drag element for notes
+            currentDragElement = e.currentTarget; 
             currentDragElement.style.zIndex = 100;
             
             const rect = currentDragElement.getBoundingClientRect();
@@ -1371,7 +787,6 @@
             if(showMsg) showMessage('All cleared.');
         }
 
-        // --- INITIALIZATION ---
         function createComponent(id, config) {
             const el = document.createElement('div');
             el.className = `component ${config.type}`;
@@ -1427,11 +842,6 @@
             document.getElementById('synthContainer').addEventListener('mousemove', handleMouseMove);
             window.addEventListener('resize', redrawCables);
             
-            // New Layout Edit Listeners
-            document.getElementById('toggleEditModeButton').addEventListener('click', toggleEditMode);
-            document.getElementById('exportLayoutButton').addEventListener('click', exportLayout);
-
-            // Existing Listeners
             document.getElementById('addNoteButton').addEventListener('click', addNewNote);
             document.getElementById('savePngButton').addEventListener('click', savePatchAsPng);
             document.getElementById('savePdfButton').addEventListener('click', savePatchAsPdf);
@@ -1440,7 +850,7 @@
             document.getElementById('loadPatchButton').addEventListener('click', triggerLoadFile);
             document.getElementById('loadPatchInput').addEventListener('change', loadPatchFromFile);
             
-            showMessage('Ready. To fine-tune component positions, activate Layout Edit Mode.', 'info');
+            showMessage('Ready to patch!', 'info');
         };
     </script>
 </body>
